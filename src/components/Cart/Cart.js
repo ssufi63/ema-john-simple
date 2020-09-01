@@ -1,14 +1,15 @@
 import React from 'react';
 
+
 const Cart = (props) => {
     const cart = props.cart;
-    console.log(cart);
+    // console.log(cart);
     // const totalPrice = cart.reduce((total, prd) => total + prd.price, 0);   // reduce diye kora
 
     let total = 0;
     for (let i = 0; i < cart.length; i++) {
         const product = cart[i];
-        total = total + product.price;
+        total = total + product.price * product.quantity;
     }
 
     let shipping = 0;
@@ -26,7 +27,7 @@ const Cart = (props) => {
     let taxRound = tax.toFixed(2);
 
     const grandtotal = (total + shipping + Number(taxRound)).toFixed(2);
-    
+
     const formatNumber = num => {
         const precision = num.toFixed(2);
         return Number(precision);
@@ -39,6 +40,10 @@ const Cart = (props) => {
             <p><small>Tax + VAT : {taxRound}</small></p>
             <p><small>Shipping Cost : {shipping}</small></p>
             <p>Total Price: {grandtotal}</p>
+            <br />
+            {
+                props.children
+            }
         </div>
     );
 };
